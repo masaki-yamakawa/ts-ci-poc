@@ -26,6 +26,8 @@ build:
         name: changedir
         code: |
           cd ./ts-api
+          npm install
+          npm test
 
     # A step that executes `npm install` command
     - npm-install
