@@ -26,13 +26,14 @@ build:
         name: changedir
         code: |
           cd ./ts-api
-          npm install
-          npm test
 
     # A step that executes `npm install` command
     - npm-install
+        cwd: ts-api/
+
     # A step that executes `npm test` command
     - npm-test
+        cwd: ts-api/
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
