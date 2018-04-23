@@ -28,11 +28,11 @@ build:
           cd ./ts-api
 
     # A step that executes `npm install` command
-    - npm-install
+    - npm-install:
         cwd: ts-api/
 
     # A step that executes `npm test` command
-    - npm-test
+    - npm-test:
         cwd: ts-api/
 
     # A custom script step, name value is used in the UI
