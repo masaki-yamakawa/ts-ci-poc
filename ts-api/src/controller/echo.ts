@@ -1,7 +1,7 @@
-import * as express from 'express';
+import * as express from "express";
 
 export const echo: RequestHandler = async (req, res, next) => {
-	const query: { say: string } = <{ say: string }>req.query;
+	const query: string = req.query;
 	if (query.say === undefined) {
 		console.log("'say' query param is required");
 		res.status(400).json({ error: "'say' query param is required" });
