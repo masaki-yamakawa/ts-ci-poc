@@ -1,0 +1,14 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "indent": [true, "tabs"],
+        "no-console": false,
+        "ordered-imports": [
+            true,
+            {
+                "grouped-imports": true
+            }
+        ],
+        "object-literal-sort-keys": false
+    }
+}
