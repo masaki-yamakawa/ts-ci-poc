@@ -1,12 +1,4 @@
-# This references the default nodejs container from
-# the Docker Hub: https://registry.hub.docker.com/_/node/
-# If you want Nodesource's container you would reference nodesource/node
-# Read more about containers on our dev center
-# http://devcenter.wercker.com/docs/containers/index.html
 box: node
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
-# http://devcenter.wercker.com/docs/pipelines/index.html
 
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
@@ -16,24 +8,51 @@ box: node
 
     # - mongo
     # http://devcenter.wercker.com/docs/services/mongodb.html
-build:
-  # The steps that will be executed on build
-  # Steps make up the actions in your pipeline
-  # Read more about steps on our dev center:
-  # http://devcenter.wercker.com/docs/steps/index.html
-  steps:
-    - script:
-        name: changedir
-        code: |
-          cd ./ts-api
 
+build-lib:
+    # A step that executes `npm install` command
+    - npm-install:
+        cwd: ts-lib/
+
+    # A step that executes `npm run lint` command
+    - script:
+        name: lint
+        cwd: ts-lib/
+        code: |
+          npm run lint
+
+    # A step that executes `npm test` command
+    - npm-test:
+        cwd: ts-lib/
+
+    # A step that executes `npm run build` command
+    - script:
+        name: run build
+        cwd: ts-lib/
+        code: |
+          npm run build
+          npm link
+
+    # A custom script step, name value is used in the UI
+    # and the code value contains the command that get executed
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+
+build:
+  steps:
     # A step that executes `npm install` command
     - npm-install:
         cwd: ts-api/
 
-    # A step that executes `npm test` command
-    - npm-test:
+    # A step that executes `npm link` command
+    - script:
+        name: link ts-lib
         cwd: ts-api/
+        code: |
+          npm link ts-lib
 
     # A step that executes `npm run lint` command
     - script:
@@ -41,6 +60,10 @@ build:
         cwd: ts-api/
         code: |
           npm run lint
+
+    # A step that executes `npm test` command
+    - npm-test:
+        cwd: ts-api/
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
