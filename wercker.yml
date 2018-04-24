@@ -44,6 +44,7 @@ build:
 
 
 build-lib:
+  steps:
     # A step that executes `npm install` command
     - npm-install:
         cwd: ts-lib/
@@ -77,6 +78,7 @@ build-lib:
 
 
 buildlib:
+  steps:
     - script:
         name: echo nodejs information test
         code: |
