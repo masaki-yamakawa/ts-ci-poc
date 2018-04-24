@@ -75,3 +75,16 @@ build-lib:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
 
+
+buildlib:
+    - script:
+        name: echo nodejs information test
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+
+echotest:
+  steps:
+    - script:
+        name: echo test
+        code: echo "node version $(node -v) running"
