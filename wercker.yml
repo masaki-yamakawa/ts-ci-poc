@@ -9,38 +9,6 @@ box: node
     # - mongo
     # http://devcenter.wercker.com/docs/services/mongodb.html
 
-build-lib:
-    # A step that executes `npm install` command
-    - npm-install:
-        cwd: ts-lib/
-
-    # A step that executes `npm run lint` command
-    - script:
-        name: lint
-        cwd: ts-lib/
-        code: |
-          npm run lint
-
-    # A step that executes `npm test` command
-    - npm-test:
-        cwd: ts-lib/
-
-    # A step that executes `npm run build` command
-    - script:
-        name: run build
-        cwd: ts-lib/
-        code: |
-          npm run build
-          npm link
-
-    # A custom script step, name value is used in the UI
-    # and the code value contains the command that get executed
-    - script:
-        name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
-
 build:
   steps:
     # A step that executes `npm install` command
@@ -64,6 +32,38 @@ build:
     # A step that executes `npm test` command
     - npm-test:
         cwd: ts-api/
+
+    # A custom script step, name value is used in the UI
+    # and the code value contains the command that get executed
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+
+build-lib:
+    # A step that executes `npm install` command
+    - npm-install:
+        cwd: ts-lib/
+
+    # A step that executes `npm run lint` command
+    - script:
+        name: lint
+        cwd: ts-lib/
+        code: |
+          npm run lint
+
+    # A step that executes `npm test` command
+    - npm-test:
+        cwd: ts-lib/
+
+    # A step that executes `npm run build` command
+    - script:
+        name: run build
+        cwd: ts-lib/
+        code: |
+          npm run build
+          npm link
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
